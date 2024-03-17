@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeTodo} from '../features/todo/todoSlice'
+import { editTodo, inputHandler, removeTodo} from '../features/todo/todoSlice'
 
-function Todos({isEditing,setIsEditing, todoId, setTodoId ,input, setInput}) {
+function Todos() {
     const todos = useSelector(state => state.todos);
     const dispatch = useDispatch();
+
+    const input = useSelector((state) => state.input);
+    const isEditing = useSelector((state) => state.isEditing);
+    const todoId = useSelector((state) => state.todoId);
+
 
     
    
@@ -39,9 +44,9 @@ function Todos({isEditing,setIsEditing, todoId, setTodoId ,input, setInput}) {
               </svg>
             </button>
             <button onClick={()=>{
-                setIsEditing(true);
-                setTodoId(todo.id);
-                setInput(todo.text);
+                dispatch(editTodo(todo.id))
+               
+                dispatch(inputHandler(todo.text))
                 
             
             }} className='text-white'>Edit</button>
